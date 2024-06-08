@@ -1,0 +1,33 @@
+version: '3'
+services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - backend
+    volumes:
+      - db-data:/var/lib/mysql
+
+  wordpress:
+    build: .
+    ports:
+      - "8000:80"
+    networks:
+      - backend
+    environment:
+      - SQL_DATABASE=root
+      - SQL_USER=root
+      - SQL_PASSWORD=bbenidar
+      - SQL_ROOT_PASSWORD=root
+      # - MYSQL_CLIENT_STRICT_HOST=0
+    depends_on:
+      - db
+
+volumes:
+  db-data:
+
+networks:
+  backend:
+    driver: bridge
