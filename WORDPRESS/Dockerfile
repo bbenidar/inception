@@ -1,40 +1,37 @@
 FROM debian:bullseye
 
-# Update package lists and install basic packages
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get -y install \
+    wget \
+    curl \
+    bash \
+    php7.4 \
+    php7.4-cgi \
+    php7.4-mysql \
+    php7.4-fpm \
+    php7.4-pdo \
+    php7.4-gd php7.4-cli \
+    php7.4-mbstring \
+    redis \
+    php-redis \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get -y install wget
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+  && chmod +x wp-cli.phar \
+  && mv wp-cli.phar /usr/local/bin/wp
 
+COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
 
-ENV SQL_DATABASE=root
-ENV SQL_USER=root
-ENV SQL_PASSWORD=bbenidar
-ENV SQL_ROOT_PASSWORD=root
+RUN mkdir /run/php
 
-RUN apt-get install -y php7.3\
-						php-fpm\
-						php-mysql\
-						mariadb-client
-
-RUN wget https://fr.wordpress.org/wordpress-6.0-fr_FR.tar.gz -P /var/www
-
-RUN cd /var/www && tar -xzf wordpress-6.0-fr_FR.tar.gz && rm wordpress-6.0-fr_FR.tar.gz
-# Add Sury PHP repository
-
-RUN		chown -R root:root /var/www/wordpress
-
-RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-
-RUN chmod +x wp-cli.phar
-RUN mv wp-cli.phar /usr/local/bin/wp
-
-RUN apt-get install -y netcat
-
-
-
-COPY conf/auto_config.sh /usr/local/bin/
+COPY ./conf/auto_config.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/auto_config.sh
 
-ENTRYPOINT ["/usr/local/bin/auto_config.sh"]
+ENTRYPOINT [ "/usr/local/bin/auto_config.sh" ]
 
-CMD ["/usr/sbin/php-fpm7.3", "-F"]
+COPY ./conf/wp-config.php /var/www/html/
+
+
+WORKDIR /var/www/html/
+EXPOSE 9000
+
+CMD ["/usr/sbin/php-fpm7.4", "-F"]

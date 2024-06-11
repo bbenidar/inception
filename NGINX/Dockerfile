@@ -1,17 +1,25 @@
 FROM debian:buster
 
+# Install necessary programs
+RUN apt-get update && \
+    apt-get install -y nginx openssl && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apt -y update && apt install -y nginx && apt install openssl -y
+# Nginx SSL
+RUN mkdir -p /etc/nginx/ssl
 
-ENV DOMAIN_NAME=bbenidar.1337.ma
-ENV CERTS_=/etc/ssl/certs/nginx-selfsigned.crt
+RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
+       -out /etc/nginx/ssl/bbenidar.crt \
+       -keyout /etc/nginx/ssl/bbenidar.key \
+       -subj "/C=MO/L=KH/O=1337/OU=student/CN=bbenidar.1337.ma"
 
+# Nginx config
+COPY ./conf/nginx.conf /etc/nginx/conf.d/default.conf
+RUN mkdir -p /run/nginx
 
+# Expose port 443
+EXPOSE 443
 
-# COPY ./conf/default /etc/nginx/sites-available/
-
-COPY ./script.sh /
-RUN chmod +x /script.sh
-
-
-CMD [ "/script.sh" ]
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
+ 

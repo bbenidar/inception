@@ -1,16 +1,6 @@
 <?php
 /**
- * The base configuration for WordPress
- *
- * The wp-config.php creation script uses this file during the installation.
- * You don't have to use the website, you can copy this file to "wp-config.php"
- * and fill in the values.
- *
- * This file contains the following configurations:
- *
- * * Database settings
- * * Secret keys
- * * Database table prefix
+
  * * ABSPATH
  *
  * @link https://wordpress.org/documentation/article/editing-wp-config-php/
@@ -20,16 +10,16 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', $SQL_DATABASE );
+define( 'DB_NAME', $MYSQL_DATABASE );
 
 /** Database username */
-define( 'DB_USER', $SQL_USER );
+define( 'DB_USER', $MYSQL_USER );
 
 /** Database password */
-define( 'DB_PASSWORD', $SQL_PASSWORD );
+define( 'DB_PASSWORD', $MYSQL_PASSWORD );
 
 /** Database hostname */
-define( 'DB_HOST', 'localhost' );
+define( 'DB_HOST', $MYSQL_HOSTNAME );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
