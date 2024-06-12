@@ -42,13 +42,13 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /Users/bbenidar/data/mysql
+      device: /home/bbenidar/data/mysql
       o: bind
   wordpress_data:
     driver: local
     driver_opts:
       type: none
-      device: /Users/bbenidar/data/wordpress
+      device: /home/bbenidar/data/wordpress
       o: bind
 
 networks:

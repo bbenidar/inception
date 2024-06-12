@@ -1,11 +1,11 @@
 #!/bin/sh
 
 #check if wp-config.php exist
-# if [ -f ./wp-config.php ] remove it and download a new one
+ #if [ -f ./wp-config.php ] remove it and download a new one
 # if [ -f ./wp-config.php ]
-# then
-# 	rm -rf wp-config.php
-# fi
+ #then
+ #	rm -rf wp-config.php
+ #fi
 if [ -f ./wp-config.php ]
 then
 	echo "wordpress already downloaded"
