@@ -12,6 +12,7 @@ if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
 else
     # Set root password and perform secure installation
     echo "Initializing MariaDB..."
+    service mariadb start
     mysql_secure_installation <<_EOF_
 y
 $MYSQL_ROOT_PASSWORD
@@ -22,6 +23,7 @@ y
 y
 _EOF_
 
+    mysql -uroot -p$MYSQL_ROOT_PASSWORD -e "CREAT DATABASE $MYSQL_DATABASE;"
     # Add root user for remote connections and flush privileges
     echo "Granting privileges..."
     echo "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'; FLUSH PRIVILEGES;" | mysql -uroot
