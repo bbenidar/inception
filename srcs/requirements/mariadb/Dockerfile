@@ -20,8 +20,7 @@ COPY ./conf/wordpress.sql /usr/local/bin/
 RUN chmod +x /usr/local/bin/mariadb.sh && \
     chmod +x /usr/local/bin/wordpress.sql
 RUN service mariadb start
-# Set the entrypoint to execute the mariadb.sh script
+
 ENTRYPOINT ["/usr/local/bin/mariadb.sh"]
 
-# Command to launch MariaDB and enable the database to listen globally
 CMD ["mysqld", "--bind-address=0.0.0.0"]

@@ -2,7 +2,7 @@ version: '3'
 services:
   nginx:
     container_name: nginx
-    build: ./NGINX
+    build: ./requirements/nginx
     ports:
       - "443:443"
     volumes:
@@ -13,7 +13,7 @@ services:
 
   mariadb:
     container_name: mariadb
-    build: ./MARIADB
+    build: ./requirements/mariadb
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
@@ -27,7 +27,7 @@ services:
     depends_on:
       - mariadb
     build:
-      context: ./WORDPRESS
+      context: ./requirements/wordpress
       dockerfile: Dockerfile
     restart: always
     env_file:
