@@ -1,4 +1,4 @@
-DATADIR := /Users/bbenidar/data
+DATADIR := /home/bbenidar/data
 MARIADB_DIR := $(DATADIR)/mysql
 WORDPRESS_DIR := $(DATADIR)/wordpress
 

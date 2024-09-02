@@ -30,7 +30,9 @@ else
     mysql -uroot -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < /usr/local/bin/wordpress.sql
 fi
 
+mysqladmin -uroot -p$MYSQL_ROOT_PASSWORD  shutdown
 /etc/init.d/mysql stop
+
 
 
 exec "$@"
