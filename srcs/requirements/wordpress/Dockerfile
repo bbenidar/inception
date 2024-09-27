@@ -31,7 +31,6 @@ RUN chmod +x /usr/local/bin/auto_config.sh
 
 ENTRYPOINT [ "/usr/local/bin/auto_config.sh" ]
 
-#COPY ./conf/wp-config.php /var/www/html/
 
 
 WORKDIR /var/www/html/
