@@ -9,10 +9,7 @@ if ! nc -z $MYSQL_HOSTNAME 3306; then
     echo "MariaDB started"
 fi
 
-# check if wp-config.php exists
-# if [ -f ./wp-config.php ]; then
-#     rm -rf wp-config.php
-# fi
+
 
 if [ ! -f ./wp-config.php ]; then
     rm -rf ./*
@@ -33,10 +30,7 @@ if [ ! -f ./wp-config.php ]; then
     sed -i "s/localhost/$MYSQL_HOSTNAME/g" wp-config.php
     sed -i "s/utf8/utf8mb4/g" wp-config.php
 
-    # Update site URL using sed
-    # sed -i "s|define('WP_HOME', '.*');|define('WP_HOME', 'https://bbenidar.42.fr');|g" wp-config.php
-    # sed -i "s|define('WP_SITEURL', '.*');|define('WP_SITEURL', 'https://bbenidar.42.fr');|g" wp-config.php
-
+ 
     echo "---------------------------------------"
     cat wp-config.php
     echo "------------------------------------"

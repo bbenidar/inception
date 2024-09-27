@@ -26,7 +26,7 @@ COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
 
 RUN mkdir /run/php
 
-COPY ./conf/auto_config.sh /usr/local/bin/
+COPY ./tools/auto_config.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/auto_config.sh
 
 ENTRYPOINT [ "/usr/local/bin/auto_config.sh" ]
